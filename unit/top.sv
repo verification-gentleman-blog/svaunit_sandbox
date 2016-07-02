@@ -20,6 +20,7 @@ module top;
 
   `include "tests/adr_held_until_ack_fail.svh"
   `include "tests/adr_held_until_ack_pass.svh"
+  `include "tests/adr_held_until_ack_pass_b2b_no_wait.svh"
 
   `include "test_suite.svh"
 

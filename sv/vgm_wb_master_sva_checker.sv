@@ -28,7 +28,8 @@ interface vgm_wb_master_sva_checker(
 
 
   ADR_HELD_UNTIL_ACK : assert property (
-    CYC_O && STB_O |=>
-      ADR_O == $past(ADR_O) throughout ACK_I [->1]
+    CYC_O && STB_O |->
+      ACK_I or
+        ##1 (ADR_O == $past(ADR_O) throughout ACK_I [->1])
   );
 endinterface
