@@ -13,18 +13,31 @@
 // limitations under the License.
 
 
-class test_suite extends svaunit_test_suite;
-  function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
-    vpiw.disable_all_assertions();
+class test_base extends svaunit_test;
+  virtual wb_bfm bfm;
 
-    `add_test(adr_held_until_ack_fail)
+
+  function void build_phase(input uvm_phase phase);
+    super.build_phase(phase);
+
+    if (!uvm_config_db #(virtual wb_bfm)::get(null, "*", "bfm", bfm))
+      `uvm_fatal("BFMERR", "BFM wasn't passed");
   endfunction
+
+
+  task pre_test();
+    vpiw.enable_assertion("ADR_HELD_UNTIL_ACK");
+
+    bfm.RST = 0;
+    bfm.STB = 0;
+    bfm.ADR = 0;
+    bfm.ACK = 0;
+
+    @(bfm.cb);
+  endtask
 
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
-
-  `uvm_component_utils(test_suite)
 endclass

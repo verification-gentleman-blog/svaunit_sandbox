@@ -13,18 +13,25 @@
 // limitations under the License.
 
 
-class test_suite extends svaunit_test_suite;
-  function void build_phase(uvm_phase phase);
-    super.build_phase(phase);
-    vpiw.disable_all_assertions();
+class adr_held_until_ack_fail extends test_base;
+  task test();
+    pre_test();
 
-    `add_test(adr_held_until_ack_fail)
-  endfunction
+    bfm.CYC <= 1;
+    bfm.STB <= 1;
+    bfm.ADR <= 'h1122_3344;
+    @(bfm.cb);
+
+    bfm.ADR <= 'hffff_0000;
+    @(bfm.cb);
+
+    `fail_if_sva_succeeded("ADR_HELD_UNTIL_ACK", "")
+  endtask
 
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
 
-  `uvm_component_utils(test_suite)
+  `uvm_component_utils(adr_held_until_ack_fail)
 endclass

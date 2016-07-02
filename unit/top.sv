@@ -16,6 +16,8 @@
 module top;
   `SVAUNIT_UTILS
 
+  `include "test_base.svh"
+  `include "tests/adr_held_until_ack_fail.svh"
   `include "test_suite.svh"
 
 
@@ -31,6 +33,7 @@ module top;
 
 
   initial begin
+    uvm_config_db #(virtual wb_bfm)::set(null, "*", "bfm", bfm);
     run_test();
   end
 endmodule

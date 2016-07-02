@@ -28,6 +28,6 @@ interface vgm_wb_master_sva_checker(
 
 
   ADR_HELD_UNTIL_ACK : assert property (
-    !CLK_I |-> 1  // Something that never matches
+    0
   );
 endinterface
