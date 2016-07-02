@@ -13,22 +13,26 @@
 // limitations under the License.
 
 
-interface vgm_wb_master_sva_checker(
-  input bit CLK_I,
-  input bit RST_I,
-  input bit CYC_O,
-  input bit STB_O,
-  input bit[31:0] ADR_O,
-  input bit ACK_I
-);
-  default clocking cb @(posedge CLK_I);
-  endclocking
+class adr_held_until_ack_pass extends test_base;
+  task test();
+    pre_test();
 
-  default disable iff RST_I;
+    bfm.CYC <= 1;
+    bfm.STB <= 1;
+    bfm.ADR <= 'h1122_3344;
+    @(bfm.cb);
+
+    bfm.ACK <= 1;
+    @(bfm.cb);
+
+    #1;
+    `fail_if_sva_not_succeeded("ADR_HELD_UNTIL_ACK", "")
+  endtask
 
 
-  ADR_HELD_UNTIL_ACK : assert property (
-    CYC_O && STB_O |=>
-      ADR_O == $past(ADR_O) throughout ACK_I [->1]
-  );
-endinterface
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
+
+  `uvm_component_utils(adr_held_until_ack_pass)
+endclass

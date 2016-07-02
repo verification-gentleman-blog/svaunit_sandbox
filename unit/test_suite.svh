@@ -19,6 +19,7 @@ class test_suite extends svaunit_test_suite;
     vpiw.disable_all_assertions();
 
     `add_test(adr_held_until_ack_fail)
+    `add_test(adr_held_until_ack_pass)
   endfunction
 
 

@@ -17,7 +17,10 @@ module top;
   `SVAUNIT_UTILS
 
   `include "test_base.svh"
+
   `include "tests/adr_held_until_ack_fail.svh"
+  `include "tests/adr_held_until_ack_pass.svh"
+
   `include "test_suite.svh"
 
 
