@@ -1,0 +1,3 @@
+[submodule "dependencies/svaunit"]
+	path = dependencies/svaunit
+	url = https://github.com/amiq-consulting/svaunit.git

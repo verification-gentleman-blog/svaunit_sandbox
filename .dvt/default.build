@@ -1,0 +1,13 @@
++dvt_auto_link_root+uvm=${UVM_HOME}
+-uvm
+
+-define UVM_DEPRECATED_REPORTING
+-incdir dependencies/svaunit/sv
+dependencies/svaunit/sv/svaunit_pkg.sv
+dependencies/svaunit/sv/svaunit_vpi_interface.sv
+
+sv/vgm_wb_master_sva_checker.sv
+
+-incdir unit
+unit/wb_bfm.sv
+unit/top.sv
