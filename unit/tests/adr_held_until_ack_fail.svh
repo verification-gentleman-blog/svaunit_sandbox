@@ -25,7 +25,7 @@ class adr_held_until_ack_fail extends test_base;
     bfm.ADR <= 'hffff_0000;
     @(bfm.cb);
 
-    `fail_if_sva_succeeded("ADR_HELD_UNTIL_ACK", "")
+    `pass_if_sva_not_succeeded("ADR_HELD_UNTIL_ACK", "")
   endtask
 
 
